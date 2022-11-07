@@ -33,7 +33,7 @@ if (system(qw( git diff --exit-code --quiet ), $CACERT_PEM_FILE) == 0) {
     my $found_version;
     while (my $line = <$in>) {
         if (!$found_version) {
-            $line =~ s{(^our \$VERSION = )'\\d+(.\\d+)?'}{$1'$new_version'}
+            $line =~ s{(^our \$VERSION = )'\d+(.\d+)?'}{$1'$new_version'}
                 and $found_version++;
         }
         print { $out } $line;
