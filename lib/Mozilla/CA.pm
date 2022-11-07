@@ -10,7 +10,7 @@ use File::Basename qw(dirname);
 sub SSL_ca_file {
     my $file = File::Spec->catfile(dirname(__FILE__), "CA", "cacert.pem");
     if (!File::Spec->file_name_is_absolute($file)) {
-	$file = File::Spec->catfile(Cwd::cwd(), $file);
+        $file = File::Spec->catfile(Cwd::cwd(), $file);
     }
     return $file;
 }
@@ -30,14 +30,14 @@ Mozilla::CA - Mozilla's CA cert bundle in PEM format
 
     my $host = "www.paypal.com";
     my $client = IO::Socket::SSL->new(
-	PeerHost => "$host:443",
-	SSL_verify_mode => 0x02,
-	SSL_ca_file => Mozilla::CA::SSL_ca_file(),
+        PeerHost => "$host:443",
+        SSL_verify_mode => 0x02,
+        SSL_ca_file => Mozilla::CA::SSL_ca_file(),
     )
-	|| die "Can't connect: $@";
+        || die "Can't connect: $@";
 
     $client->verify_hostname($host, "http")
-	|| die "hostname verification failure";
+        || die "hostname verification failure";
 
 =head1 DESCRIPTION
 

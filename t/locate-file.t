@@ -12,7 +12,7 @@ ok($ca_file);
 ok(open(my $fh, "<", $ca_file));
 while (<$fh>) {
     if (/--BEGIN CERTIFICATE--/) {
-	ok(1);
-	last;
+        ok(1);
+        last;
     }
 }

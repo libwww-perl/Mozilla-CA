@@ -27,7 +27,7 @@ exit;
 sub run {
     my @argv = @_;
     for (@argv) {
-	$_ = qq("$_") if /\s/;
+        $_ = qq("$_") if /\s/;
     }
     print ">>> @argv\n";
     system(@_);
