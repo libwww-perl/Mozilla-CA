@@ -1,6 +1,7 @@
 package Mozilla::CA;
-
 use strict;
+use warnings;
+
 our $VERSION = '20211001';
 
 use File::Spec ();
