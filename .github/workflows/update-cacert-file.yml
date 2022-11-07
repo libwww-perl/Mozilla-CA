@@ -12,6 +12,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: update cacert file
         run: |
-          ./maint/mk-ca-bundle.pl lib/Mozilla/CA/cacert.pem
-          git diff --exit-code || perl -pi -e "s/(^our .VERSION = )'\\d+(.\\d+)?'/\$1'$(date -u '+%Y%m%d')'/" lib/Mozilla/CA.pm
-      - uses: shogo82148/actions-commit-and-create-pr@v1
+          ./maint/update-cacert-file
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Update certificate bundle
+          title: Update certificate bundle
+          branch: update-cacert-file
