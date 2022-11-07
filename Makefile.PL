@@ -28,7 +28,7 @@ WriteMakefile(
         },
     },
     TEST_REQUIRES => {
-        Test => 0,
+        'Test::More' => 0,
     },
 );
 
