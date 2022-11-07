@@ -1,5 +1,7 @@
 Revision history for Mozilla-CA
 
+  - Update from Mozilla repository to 2022-11-07
+
 20211001
   - Update mk-ca-bundle.pl and Mozilla data to 2021-10-01 (Aaron Rowe)
   - Improve metadata for license information (Shoichi Kaji)
