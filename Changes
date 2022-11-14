@@ -1,5 +1,6 @@
 Revision history for Mozilla-CA
 
+20221114
   - Update from Mozilla repository to 2022-11-07
   - stop installing mk-ca-bundle.pl script
   - moved repository and issues to https://github.com/libwww-perl/Mozilla-CA
