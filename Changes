@@ -1,5 +1,7 @@
 Revision history for Mozilla-CA
 
+  - Update from Mozilla repository to 2023-01-09
+
 20221114
   - Update from Mozilla repository to 2022-11-07
   - stop installing mk-ca-bundle.pl script
