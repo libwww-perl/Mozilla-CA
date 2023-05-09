@@ -1,4 +1,4 @@
-name: update cacert file
+name: Update cacert.pem file
 
 on:
   schedule:
@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  update-cacert-file:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: update cacert file
+      - name: Update cacert.pem file
         run: |
           ./maint/update-cacert-file
       - name: Create Pull Request
