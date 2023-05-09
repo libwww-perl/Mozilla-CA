@@ -1,7 +1,5 @@
 Revision history for Mozilla-CA
 
-  - Update from Mozilla repository to 2023-06-26
-
 20221114
   - Update from Mozilla repository to 2022-11-07
   - stop installing mk-ca-bundle.pl script
@@ -70,5 +68,5 @@ Revision history for Mozilla-CA
 
 20110904
   - Remove and distrust DigiNotar
-  - Add Certinomis, Root CA Generalitat Valenciana, A-Trust-nQual-03 and TWCA 
+  - Add Certinomis, Root CA Generalitat Valenciana, A-Trust-nQual-03 and TWCA
 
