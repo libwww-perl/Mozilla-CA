@@ -1,4 +1,4 @@
-name: update mk-ca-bundle script
+name: Update mk-ca-bundle.pl script
 
 on:
   schedule:
@@ -6,16 +6,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  update:
+  update-mk-ca-bundle:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Auth Token
+        id: auth-token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v3
-      - name: update cacert file
+        with:
+          token: ${{ steps.auth-token.outputs.token }}
+      - name: Update mk-ca-bundle.pl script
         run: |
           ./maint/update-mk-ca-bundle
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
-          commit-message: Update certificate bundle
-          title: Update certificate bundle
+          token: ${{ steps.auth-token.outputs.token }}
+          commit-message: Update mk-ca-bundle.pl script
+          title: Update mk-ca-bundle.pl script
           branch: update-mk-ca-bundle

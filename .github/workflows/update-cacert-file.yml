@@ -9,13 +9,22 @@ jobs:
   update-cacert-file:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate Auth Token
+        id: auth-token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - uses: actions/checkout@v3
+        with:
+          token: ${{ steps.auth-token.outputs.token }}
       - name: Update cacert.pem file
         run: |
           ./maint/update-cacert-file
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v5
         with:
+          token: ${{ steps.auth-token.outputs.token }}
           commit-message: Update certificate bundle
           title: Update certificate bundle
           branch: update-cacert-file
