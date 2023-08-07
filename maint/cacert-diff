@@ -85,6 +85,10 @@ for my $spec (@opts) {
         }
     }
 
+    if (!keys %certs) {
+        die "can't read cert file $CACERT_PEM_FILE" . (defined $spec ? " for $spec" : "") . "!\n";
+    }
+
     push @content, \%certs;
 }
 
