@@ -18,7 +18,7 @@ jobs:
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Install cpan-upload-tiny
         run: |
-          cpanm -n CPAN::Upload::Tiny
+          curl -s https://cpanmin.us/ | perl - CPAN::Upload::Tiny
       - name: Set up PAUSE credentials
         env:
           PAUSE_USER: ${{ vars.PAUSE_USER }}
