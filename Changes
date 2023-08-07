@@ -1,5 +1,6 @@
 Revision history for Mozilla-CA
 
+20230807
   - Prevent extra headers in tarball and make it reproducible
 
 20230801
