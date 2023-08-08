@@ -33,15 +33,15 @@ my %META = (
 );
 
 my %MM_ARGS = (
-    dist => {
-        TAR => '$(PERL) ./maint/make-tarball',
-        TARFLAGS => (
-            -e '.git'
-                ? '-cv --git-time -f'
-                : '-cv --mtime=' . (stat(__FILE__))[9] . ' -f',
-        ),
-        COMPRESS => 'gzip --no-name --best',
-    },
+  dist => {
+    TAR => '$(PERL) ./maint/make-tarball',
+    TARFLAGS => (
+      -e '.git'
+        ? '-cv --git-time -f'
+        : '-cv --mtime=' . (stat(__FILE__))[9] . ' -f',
+    ),
+    COMPRESS => 'gzip --no-name --best',
+  },
 );
 
 ## BOILERPLATE ###############################################################
