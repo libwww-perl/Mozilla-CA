@@ -31,5 +31,7 @@ jobs:
         with:
           token: ${{ steps.auth-token.outputs.access-token }}
           commit-message: Update mk-ca-bundle.pl script
+          author: ${{ steps.git-user.outputs.user-full }}
+          committer: ${{ steps.git-user.outputs.user-full }}
           title: Update mk-ca-bundle.pl script
           branch: update-mk-ca-bundle
