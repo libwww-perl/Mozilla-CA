@@ -11,20 +11,25 @@ jobs:
     steps:
       - name: Generate Auth Token
         id: auth-token
-        uses: tibdex/github-app-token@v1
+        uses: jamestrousdale/github-app-jwt-token@0.1.4
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - id: git-user
+        name: Set up git user
+        uses: haarg/setup-git-user@v1
+        with:
+          jwt: ${{ steps.auth-token.outputs.jwt }}
       - uses: actions/checkout@v3
         with:
-          token: ${{ steps.auth-token.outputs.token }}
+          token: ${{ steps.auth-token.outputs.access-token }}
       - name: Update mk-ca-bundle.pl script
         run: |
           ./maint/update-mk-ca-bundle
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ steps.auth-token.outputs.token }}
+          token: ${{ steps.auth-token.outputs.access-token }}
           commit-message: Update mk-ca-bundle.pl script
           title: Update mk-ca-bundle.pl script
           branch: update-mk-ca-bundle
