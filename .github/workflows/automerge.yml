@@ -1,0 +1,20 @@
+name: Maybe Enable Auto-Merge
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  enable-auto-merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'lwp-automation[bot]'
+    steps:
+      - name: Generate Auth Token
+        id: auth-token
+        uses: jamestrousdale/github-app-jwt-token@0.1.4
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ steps.auth-token.outputs.access-token }}
+          pull-request-number: ${{ github.event.pull_request.number }}
