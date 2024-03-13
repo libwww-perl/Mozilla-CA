@@ -1,0 +1,28 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Auth Token
+        id: auth-token
+        uses: jamestrousdale/github-app-jwt-token@0.1.4
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      - id: git-user
+        name: Set up git user
+        uses: haarg/setup-git-user@v1
+        with:
+          jwt: ${{ steps.auth-token.outputs.jwt }}
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ steps.auth-token.outputs.access-token }}
+      - name: Prepare Release
+        id: prepare-release
+        run: ./maint/prepare-release
+      - run: |
+        git push origin HEAD ${{ steps.prepare-release.outputs.tag-name }}
