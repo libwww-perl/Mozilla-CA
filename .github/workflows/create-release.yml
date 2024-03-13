@@ -20,8 +20,12 @@ jobs:
           jwt: ${{ steps.auth-token.outputs.jwt }}
       - uses: actions/checkout@v4
         with:
-          fetch-tags: true
           token: ${{ steps.auth-token.outputs.access-token }}
+      - name: Find Previous Tag
+        id: prev-tag
+        run: ./maint/prev-release
+      - name: Fetch Previous Tag
+        run: git fetch origin ${{ steps.prev-tag.outputs.tag-name }}
       - name: Prepare Release
         id: prepare-release
         run: ./maint/prepare-release
