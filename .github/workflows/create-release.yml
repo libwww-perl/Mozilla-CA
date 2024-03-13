@@ -20,6 +20,7 @@ jobs:
           jwt: ${{ steps.auth-token.outputs.jwt }}
       - uses: actions/checkout@v4
         with:
+          fetch-tags: true
           token: ${{ steps.auth-token.outputs.access-token }}
       - name: Prepare Release
         id: prepare-release
