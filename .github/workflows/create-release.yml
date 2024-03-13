@@ -25,7 +25,7 @@ jobs:
         id: prev-tag
         run: ./maint/prev-release
       - name: Fetch Previous Tag
-        run: git fetch origin ${{ steps.prev-tag.outputs.tag-name }}
+        run: git fetch origin ${{ steps.prev-tag.outputs.tag-name }}:refs/tags/${{ steps.prev-tag.outputs.tag-name }}
       - name: Prepare Release
         id: prepare-release
         run: ./maint/prepare-release
