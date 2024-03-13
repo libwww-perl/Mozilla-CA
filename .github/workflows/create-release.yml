@@ -25,4 +25,4 @@ jobs:
         id: prepare-release
         run: ./maint/prepare-release
       - run: |
-        git push origin HEAD ${{ steps.prepare-release.outputs.tag-name }}
+          git push origin HEAD ${{ steps.prepare-release.outputs.tag-name }}
