@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate Auth Token
-        id: auth-token
-        uses: tibdex/github-app-token@v1
+        uses: actions/create-github-app-token@v1
+        id: app-token
         with:
-          app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - name: Install cpan-upload-tiny
         run: |
           echo "$HOME/perl5/bin" >> "$GITHUB_PATH"
@@ -29,9 +29,9 @@ jobs:
           PAUSE_PASS: ${{ secrets.PAUSE_PASS }}
         run: |
           printf "user $PAUSE_USER\npassword $PAUSE_PASS\n" > "$HOME/.pause"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          token: ${{ steps.auth-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token }}
       - name: Build Release
         id: build
         run: |
@@ -51,6 +51,6 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          token: ${{ steps.auth-token.outputs.token }}
+          token: ${{ steps.app-token.outputs.token }}
           files: ${{ steps.build.outputs.tarball }}
           body: ${{ steps.tag-content.outputs.tag-content }}

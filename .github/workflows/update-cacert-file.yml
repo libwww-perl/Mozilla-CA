@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate Auth Token
-        id: auth-token
-        uses: jamestrousdale/github-app-jwt-token@0.1.4
+        uses: actions/create-github-app-token@v1
+        id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
@@ -19,17 +19,17 @@ jobs:
         name: Set up git user
         uses: haarg/setup-git-user@v1
         with:
-          jwt: ${{ steps.auth-token.outputs.jwt }}
-      - uses: actions/checkout@v3
+          app: ${{ steps.app-token.outputs.app-slug }}
+      - uses: actions/checkout@v4
         with:
-          token: ${{ steps.auth-token.outputs.access-token }}
+          token: ${{ steps.app-token.outputs.token }}
       - name: Update cacert.pem file
         run: |
           ./maint/update-cacert-file
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ steps.auth-token.outputs.access-token }}
+          token: ${{ steps.app-token.outputs.token }}
           commit-message: Update certificate bundle
           author: ${{ steps.git-user.outputs.user-full }}
           committer: ${{ steps.git-user.outputs.user-full }}
