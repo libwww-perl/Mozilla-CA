@@ -153,7 +153,7 @@ sub warning_message() {
         print "  3. certdata.txt file format may change, lag time to update this script\n";
         print "  4. Generally unwise to blindly trust CAs without manual review & verification\n";
         print "  5. Mozilla apps use additional security checks are not represented in certdata\n";
-        print "  6. Use of this script will make a security engineer grind his teeth and\n";
+        print "  6. Use of this script makes a security engineer grind his teeth and\n";
         print "     swear at you.  ;)\n";
         exit;
     } else { # Short Form Warning
@@ -228,7 +228,7 @@ sub parse_csv_param($$@) {
 
     if(scalar(@invalid) > 0) {
         # Tell the user which parameters were invalid and print the standard help
-        # message which will exit
+        # message which also exits
         print "Error: Invalid ", $description, scalar(@invalid) == 1 ? ": " : "s: ", join(", ", map { "\"$_\"" } @invalid), "\n";
         HELP_MESSAGE();
     }
@@ -303,8 +303,6 @@ my $oldhash = oldhash($crt);
 
 report "SHA256 of old file: $oldhash";
 
-my $filedate_iso = '';
-
 if(!$opt_n) {
     report "Using URL: $url";
     report "Downloading $txt ...";
@@ -378,19 +376,8 @@ if(!$opt_n) {
     }
 }
 
-my $filedate;
-my $datesrc;
-
-if($filedate_iso) {
-    my $time = Time::Piece->strptime($filedate_iso, '%Y-%m-%dT%H:%M:%SZ');
-    $filedate = $time->epoch;
-    $datesrc = "last updated on";
-    utime($filedate, $filedate, $txt);
-}
-if(!$filedate) {
-    $filedate = $resp ? $resp->last_modified : (stat($txt))[9];
-    $datesrc = "as of";
-}
+my $filedate = $resp ? $resp->last_modified : (stat($txt))[9];
+my $datesrc = "as of";
 if(!$filedate) {
     # mxr.mozilla.org gave us a time, hg.mozilla.org does not!
     $filedate = time();
