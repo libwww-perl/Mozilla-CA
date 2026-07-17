@@ -257,7 +257,7 @@ sub sha256 {
 
 sub oldhash {
     my $hash = "";
-    open(C, "<$_[0]") || return 0;
+    open(C, "<", $_[0]) or return 0;
     while(<C>) {
         chomp;
         if($_ =~ /^\#\# SHA256: (.*)/) {
@@ -309,7 +309,7 @@ if(!$opt_n) {
 
     # If we have an HTTPS URL then use curl
     if($url =~ /^https:\/\//i) {
-        my $curl = `curl -V`;
+        my $curl = qx(curl -V);
         if($curl) {
             if($curl =~ /^Protocols:.* https( |$)/m) {
                 report "Get certdata with curl!";
