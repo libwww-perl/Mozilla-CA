@@ -15,7 +15,7 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
       - id: git-user
         name: Set up git user
-        uses: haarg/setup-git-user@9d1a4997828bb872e763380271ed657f1edb9618 # v1.0.0
+        uses: haarg/setup-git-user@8b9003b3a6ca3ccac7c340b7bacf4168995e6da3 # v2.1.0
         with:
           app: ${{ steps.app-token.outputs.app-slug }}
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
