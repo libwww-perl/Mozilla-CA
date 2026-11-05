@@ -12,7 +12,7 @@ my $root = abs2rel(abs_path(catfile($dir, updir)));
 
 my $CACERT_PEM_FILE = canonpath("$root/lib/Mozilla/CA/cacert.pem");
 
-system($^X, "$dir/mk-ca-bundle.pl", '-u', $CACERT_PEM_FILE) == 0
+system($^X, "$dir/mk-ca-bundle.pl", '-m', @ARGV, '-u', $CACERT_PEM_FILE) == 0
     or exit $?;
 
 if (system(qw( git diff --exit-code --quiet ), $CACERT_PEM_FILE) == 0) {

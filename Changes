@@ -1,5 +1,7 @@
 Revision history for Mozilla-CA
 
+  - Include metadata with certificates in bundle file
+
 20261020
   - Update from Mozilla repository to 2026-10-20
   - Denylisted certificates:
