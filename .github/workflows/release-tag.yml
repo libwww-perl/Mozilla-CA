@@ -44,7 +44,7 @@ jobs:
         run: |
           EOF="$(dd if=/dev/urandom bs=15 count=1 status=none | base64)"
           echo "tag-content<<$EOF" >> "$GITHUB_OUTPUT"
-          git tag -l --format='%(contents)' "$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+          git tag -l --format='%(contents:body)' "$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
           echo "$EOF" >> "$GITHUB_OUTPUT"
       - name: Create Release
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
